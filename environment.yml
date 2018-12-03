@@ -1,0 +1,17 @@
+name: bikes
+channels:
+- conda-forge
+- defaults
+dependencies:
+- pip:
+  - daiquiri==1.5.0
+  - logger==1.4
+  - matplotlib==3.0.2
+  - numpy==1.15.4
+  - pandas==0.23.4
+  - statsmodels
+  - scipy
+  - seaborn
+  - sklearn
+  - xgboost
+  - pickle

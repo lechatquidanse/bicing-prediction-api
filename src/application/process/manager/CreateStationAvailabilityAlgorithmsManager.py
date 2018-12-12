@@ -1,8 +1,12 @@
+"""
+Manager to create Station Availability Algorithm model for each stations
+"""
 from datetime import datetime
 
 from injector import inject
 
-from application.use_case.command.CreateStationAvailabilityAlgorithmCommand import CreateStationAvailabilityAlgorithmCommand
+from application.use_case.command.CreateStationAvailabilityAlgorithmCommand import \
+    CreateStationAvailabilityAlgorithmCommand
 from application.use_case.handler import CreateStationAvailabilityAlgorithmHandler
 from infrastructure.bicing_api.peewee.PeeweeStationQuery import PeeweeStationQuery
 

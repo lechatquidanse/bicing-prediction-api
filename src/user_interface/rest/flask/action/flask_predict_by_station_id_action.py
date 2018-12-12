@@ -1,3 +1,6 @@
+"""
+REST Action with HTTP method GET to handle query of station's availabilities predictions
+"""
 import uuid
 
 from flask import request

@@ -1,3 +1,6 @@
+"""
+Abstract representation of station data used for data mining (data training and prediction thanks to a model)
+"""
 from pandas import (DataFrame, get_dummies)
 
 

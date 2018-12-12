@@ -1,3 +1,6 @@
+"""
+CLI command to generate model for each station to predict station's availabilities
+"""
 from datetime import datetime
 
 import connexion
@@ -8,11 +11,9 @@ from application.process.manager.CreateStationAvailabilityAlgorithmsManager impo
 from config.services import configure
 
 if __name__ == '__main__':
-    app = connexion.App(__name__)
-    injector = FlaskInjector(app=app.app, modules=[configure])
+    APP = connexion.App(__name__)
+    INJECTOR = FlaskInjector(app=APP.app, modules=[configure])
 
-    manager = injector.injector.get(CreateStationAvailabilityAlgorithmsManager)
+    MANAGER = INJECTOR.injector.get(CreateStationAvailabilityAlgorithmsManager)
 
-    start_date = datetime.strptime('2018-11-20 20:00:00', '%Y-%m-%d %H:%M:%S')
-
-    manager.manage(start_date, '5T')
+    MANAGER.manage(datetime.strptime('2018-11-20 20:00:00', '%Y-%m-%d %H:%M:%S'), '5T')

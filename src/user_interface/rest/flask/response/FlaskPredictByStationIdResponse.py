@@ -1,3 +1,6 @@
+"""
+In charge of response handle for predictions by station
+"""
 from flask import jsonify
 from pandas import DataFrame, DatetimeIndex
 
@@ -9,7 +12,7 @@ class FlaskPredictByStationIdResponse:
     def from_view(self, view: StationAvailabilitiesPredictionByDateTimeInPeriodFilterView):
         return jsonify({'station_id': view.station_id(),
                         'predictions': self._predictions_by_date_time(view.predictions(),
-                                                                      view.filter().to_date_time_index())})
+                                                                      view.by_filter().to_date_time_index())})
 
     @staticmethod
     def _predictions_by_date_time(predictions: DataFrame, date_time: DatetimeIndex) -> dict:
@@ -18,7 +21,7 @@ class FlaskPredictByStationIdResponse:
 
         predictions = predictions_by_date_time.to_dict()
 
-        if 0 == len(predictions):
+        if len(predictions) == 0:
             return {}
 
         return next(iter(predictions.values()))

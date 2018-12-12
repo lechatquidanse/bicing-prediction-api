@@ -1,3 +1,6 @@
+"""
+Peewee Query to find useful information (stated_at datetime, number of bikes and slots) in bicing API data provider
+"""
 import uuid
 
 from injector import inject
@@ -15,7 +18,12 @@ class PeeweeStationStateQuery:
         self._client = client
 
     def query(self, station_id: uuid) -> list:
-        query = 'SELECT ss1.stated_at, CAST(ss1.available_bike_number as FLOAT) as bike, CAST(ss1.available_slot_number as FLOAT) as slot FROM "station_state" ss1 WHERE ss1.station_assigned_id=\'%s\'' % station_id
+        query = ('SELECT '
+                 'ss1.stated_at, '
+                 'CAST(ss1.available_bike_number as FLOAT) as bike, '
+                 'CAST(ss1.available_slot_number as FLOAT) as slot '
+                 'FROM "station_state" ss1 '
+                 'WHERE ss1.station_assigned_id=\'%s\'' % station_id)
         cursor = self._client.query(query)
 
         results = []

@@ -1,3 +1,6 @@
+"""
+Peewee Query to find station_id of all stations in bicing API data provider
+"""
 import uuid
 
 from injector import inject

@@ -1,3 +1,6 @@
+"""
+Representation of station data used for data mining prediction
+"""
 from pandas import DataFrame, DatetimeIndex, concat
 
 from infrastructure.data_mining.StationData import StationData
@@ -19,5 +22,4 @@ class StationDataPrediction(StationData):
         data_frame = self._date_transform(data_frame)
         data_frame = data_frame['2018-12-18 06:00:00':]
 
-        return data_frame.loc[:,~data_frame.columns.duplicated()]
-
+        return data_frame.loc[:, ~data_frame.columns.duplicated()]

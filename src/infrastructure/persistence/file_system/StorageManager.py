@@ -1,3 +1,6 @@
+"""
+Manage storage folder creation and clean
+"""
 import os
 
 

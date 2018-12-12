@@ -12,7 +12,6 @@ before_script:
 - pip install docker-compose
 
 - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
-#- docker network create bicing-machine-learning-network
 
 - ENVIRONMENT=$(echo $CI_BUILD_REF_NAME | awk -F'/' '{print $1}')
 - PRODUCTION_TAG=$(echo $CI_BUILD_REF_NAME | awk -F'/' '{print $2}')
@@ -28,6 +27,7 @@ before_script:
   script:
     - cp .env.dist .env
     - docker-compose -f docker-compose.yml up -d
+    - docker-compose exec -T api pylint config src
     - docker-compose exec -T api python -m unittest discover src "*Test.py"
     - docker-compose down -v --remove-orphans
 
@@ -35,9 +35,10 @@ before_script:
   script:
     - cp .env.dist .env
     - docker-compose -f docker-compose.yml up -d
+    - docker-compose exec -T api pylint config src
     - docker-compose exec -T api python -m unittest discover src "*Test.py"
     - docker-compose down -v --remove-orphans
-    - docker build --target bicing_api_php -t $PRODUCTION_IMAGE .
+    - docker build --target bicing_machine_learning_api -t $PRODUCTION_IMAGE .
     - docker push $PRODUCTION_IMAGE
 
 test:

@@ -1,3 +1,6 @@
+"""
+Dependency Injection configuration with injector library
+"""
 import pickle
 
 from injector import Binder
@@ -42,7 +45,8 @@ def configure(binder: Binder) -> Binder:
     binder.bind(PeeweeStationStateQuery, to=PeeweeStationStateQuery(binder.injector.get(PeeweeClient)))
     ### Persistence ::
     binder.bind(StationAvailabilityAlgorithmRepositoryInterface,
-                to=FileSystemStationAvailabilityAlgorithmRepository(pickle, PERSISTENCE_MODEL_FILE_SYSTEM_PATH, StorageManager()))
+                to=FileSystemStationAvailabilityAlgorithmRepository(pickle, PERSISTENCE_MODEL_FILE_SYSTEM_PATH,
+                                                                    StorageManager()))
     ### Data Mining ::
     binder.bind(XGBRegresser, to=XGBRegresser())
     binder.bind(XGBoostDataTrainer, to=XGBoostDataTrainer(binder.injector.get(XGBRegresser)))

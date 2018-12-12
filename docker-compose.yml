@@ -15,6 +15,7 @@ services:
   api:
     build:
       context: .
+      target: 'bicing_machine_learning_api_env_dev'
     depends_on: ['bicing_api_db']
     networks: ['backend']
     ports: ['9090:9090']

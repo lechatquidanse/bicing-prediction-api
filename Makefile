@@ -43,6 +43,17 @@ down:
 ## Truncate database and import fixtures.
 fixtures: down run import_dev
 
+## Run all quality assurance tools (tests and code inspection).
+qa: code_static_analysis test
+
+########
+# Code #
+########
+
+## Run pylint
+code_static_analysis:
+	docker-compose run --rm api pylint config src
+
 ###############
 # Environment #
 ###############
@@ -62,3 +73,15 @@ env_run:
 ## Import fixtures.
 import_dev:
 	./docker/development/import-fixtures.sh
+
+########
+# Test#
+########
+
+## Run tests
+test: test_unit
+
+## Run unit tests.
+test_unit:
+	docker-compose run --rm api python -m unittest discover src "*Test.py"
+

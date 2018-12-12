@@ -1,3 +1,6 @@
+"""
+Command to create a station availability algorithm
+"""
 import uuid
 from datetime import datetime
 

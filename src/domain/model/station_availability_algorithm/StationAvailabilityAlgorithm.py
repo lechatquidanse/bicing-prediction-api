@@ -1,3 +1,6 @@
+"""
+Model to describe a station Availability Algorithm that is used to do predictions of availability for a station
+"""
 import uuid
 
 from numpy.ma import array
@@ -27,7 +30,7 @@ class StationAvailabilityAlgorithm:
 
     def __eq__(self, other):
         if isinstance(other, StationAvailabilityAlgorithm):
-            return self._station_id == self._station_id \
-                   and self._training_data_set.equals(other._training_data_set) \
-                   and self._model.get_dump() == other._model.get_dump()
+            return self.station_id() == other.station_id()\
+                   and self.training_data_set().equals(other.training_data_set()) \
+                   and self.model().get_dump() == other.model().get_dump()
         return False

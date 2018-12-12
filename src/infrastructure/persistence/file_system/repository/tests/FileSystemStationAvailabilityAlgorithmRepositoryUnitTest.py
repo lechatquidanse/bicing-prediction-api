@@ -1,3 +1,6 @@
+"""
+Unit test for FileSystemStationAvailabilityAlgorithmRepository
+"""
 import pickle
 import unittest
 import uuid
@@ -27,17 +30,13 @@ class FileSystemStationAvailabilityAlgorithmRepositoryUnitTest(unittest.TestCase
     def test_it_can_override_an_existing_one(self) -> None:
         station_id = uuid.uuid4()
 
-        station_availability_algorithm_1 = StationAvailabilityAlgorithm(station_id,
-                                                                        DataFrame(['data_1', 'frame_1', 'test_1']),
-                                                                        Booster())
-        self._repository.save(station_availability_algorithm_1)
+        first = StationAvailabilityAlgorithm(station_id, DataFrame(['data_1', 'frame_1', 'test_1']), Booster())
+        self._repository.save(first)
 
-        station_availability_algorithm_2 = StationAvailabilityAlgorithm(station_id,
-                                                                        DataFrame(['data_2', 'frame_2', 'test_2']),
-                                                                        Booster())
-        self._repository.save(station_availability_algorithm_2)
+        override = StationAvailabilityAlgorithm(station_id, DataFrame(['data_2', 'frame_2', 'test_2']), Booster())
+        self._repository.save(override)
 
-        self.assertEqual(self._repository.find_by_station_id(station_id), station_availability_algorithm_2)
+        self.assertEqual(self._repository.find_by_station_id(station_id), override)
 
     def test_it_can_find_one_by_station_id(self) -> None:
         station_id = uuid.uuid4()

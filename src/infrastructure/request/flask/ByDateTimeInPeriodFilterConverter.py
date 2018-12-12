@@ -1,3 +1,6 @@
+"""
+Convert a value from a flask request to python ByDateTimeInPeriodFilterConverter object
+"""
 from datetime import datetime
 
 from application.use_case.filter.ByDateTimeInPeriodFilter import ByDateTimeInPeriodFilter
@@ -7,13 +10,13 @@ class ByDateTimeInPeriodFilterConverter:
     QUERY_SEPARATOR = ','
 
     def to_python(self, value: str) -> ByDateTimeInPeriodFilter:
-        if None == value:
+        if value is None:
             raise ValueError(
                 'No filter query provided (for example filter=2018-02-12%2023:34:21,2018-08-12%2023:34:21,5T)')
 
         values = value.split(self.QUERY_SEPARATOR)
 
-        if 3 != len(values):
+        if len(values) != 3:
             raise ValueError(
                 'Filter is not well formatted (for example filter=2018-02-12%2023:34:21,2018-08-12%2023:34:21,5T)')
 

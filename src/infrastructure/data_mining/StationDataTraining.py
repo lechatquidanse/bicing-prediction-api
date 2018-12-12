@@ -1,3 +1,6 @@
+"""
+Representation of station data used for data mining training
+"""
 from datetime import datetime
 
 from pandas import DataFrame
@@ -6,7 +9,8 @@ from infrastructure.data_mining.StationData import StationData
 
 
 class StationDataTraining(StationData):
-    def __init__(self, records: list, columns: list, feature_column: str, indexed_column: str, frequency: str, test_start_date: datetime):
+    def __init__(self, records: list, columns: list, feature_column: str, indexed_column: str, frequency: str,
+                 test_start_date: datetime):
         self._records = records
         self._columns = columns
         self._indexed_column = indexed_column

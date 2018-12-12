@@ -1,3 +1,6 @@
+"""
+Peewee Client to connect and query to bicing api data provider
+"""
 from typing import Any
 
 from peewee import PostgresqlDatabase

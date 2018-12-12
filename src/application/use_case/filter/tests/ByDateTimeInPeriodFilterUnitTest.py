@@ -1,3 +1,7 @@
+# pylint: skip-file
+"""
+Unit test for ByDateTimeInPeriodFilterUnitTest
+"""
 import unittest
 from datetime import datetime
 
@@ -25,9 +29,7 @@ class ByDateTimeInPeriodFilterUnitTest(unittest.TestCase):
         self.assertEqual('5T', date_time_index.freq)
 
     def test_it_can_not_be_created_with_period_start_after_period_end(self) -> None:
-        with self.assertRaises(AssertionError): ByDateTimeInPeriodFilter(
-            period_date_start=datetime.strptime('2017/08/12 07:00:00',
-                                                '%Y/%m/%d %H:%M:%S'),
-            period_date_end=datetime.strptime('1998/08/12 08:00:00',
-                                              '%Y/%m/%d %H:%M:%S'),
-            frequency='5T')
+        with self.assertRaises(AssertionError):
+            ByDateTimeInPeriodFilter(period_date_start=datetime.strptime('2017/08/12 07:00:00', '%Y/%m/%d %H:%M:%S'),
+                                     period_date_end=datetime.strptime('1998/08/12 08:00:00', '%Y/%m/%d %H:%M:%S'),
+                                     frequency='5T')

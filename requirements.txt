@@ -5,6 +5,15 @@ numpy==1.15.4
 pandas==0.23.4
 statsmodels==0.9.0
 scipy==1.1.0
-seaborn
+seaborn==0.9.0
 sklearn
-xgboost
+xgboost==0.81
+peewee==3.7.1
+psycopg2-binary==2.7.6.1
+python-dotenv==0.9.1
+Flask==1.0.2
+connexion==2.0.2
+Flask-Injector==0.11.0
+fastavro==0.21.14
+injector==0.14.1
+assertpy==0.14

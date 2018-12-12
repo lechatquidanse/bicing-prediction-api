@@ -1,7 +1,27 @@
 version: '2.3'
 
 services:
-  predict:
+  bicing_api_db:
+    build:
+      context: docker/build/database
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    networks: ['backend']
+    ports: ['5432:5432']
+    restart: 'always'
+    volumes: ['data-db:/var/lib/postgresql/', './docker/development/fixtures.zip:/var/data/fixtures.zip']
+  api:
     build:
       context: .
+    depends_on: ['bicing_api_db']
+    networks: ['backend']
+    ports: ['9090:9090']
     volumes: ['./:/var/www/bicing-prediction']
+
+volumes:
+  data-db:
+
+networks:
+  backend:

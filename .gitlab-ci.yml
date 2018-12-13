@@ -5,6 +5,7 @@ services:
 stages:
 - test
 - build
+- production
 
 before_script:
 - apk update && apk upgrade

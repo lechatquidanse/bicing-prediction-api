@@ -9,9 +9,11 @@ from flask_injector import FlaskInjector
 from application.process.manager.CreateStationAvailabilityAlgorithmsManager import \
     CreateStationAvailabilityAlgorithmsManager
 from config.services import configure
+from config.settings import DEBUG_MODE
 
 if __name__ == '__main__':
     APP = connexion.App(__name__)
+    APP.debug = DEBUG_MODE
     INJECTOR = FlaskInjector(app=APP.app, modules=[configure])
 
     MANAGER = INJECTOR.injector.get(CreateStationAvailabilityAlgorithmsManager)

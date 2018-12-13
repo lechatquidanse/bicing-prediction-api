@@ -27,4 +27,4 @@ paths:
           format: uuid
       responses:
         '200':
-          description: 'Predictiion for station Availability'
+          description: 'Predict number of bikes available at in a time slot for a station'

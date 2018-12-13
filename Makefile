@@ -27,7 +27,7 @@ help:
 ##################
 
 ## Install all install_* requirements and launch project.
-install: env_file env_run
+install: env_file env_run import_dev
 
 ## Run project, install vendors and run migrations.
 run: env_run
@@ -73,6 +73,12 @@ env_run:
 ## Import fixtures.
 import_dev:
 	./docker/development/import-fixtures.sh
+
+####################
+# Machine Learning #
+####################
+create_models:
+	docker-compose run --rm api python src/user_interface/cli/flask/command/generate_station_prediction_model.py
 
 ########
 # Test#

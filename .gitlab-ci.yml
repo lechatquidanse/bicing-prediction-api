@@ -5,6 +5,7 @@ services:
 stages:
 - test
 - build
+- production
 
 before_script:
 - apk update && apk upgrade
@@ -21,25 +22,26 @@ before_script:
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:
-    - ./vendor
+    - .pip
 
 .quality_assurance_script_template: &quality_assurance_script
   script:
     - cp .env.dist .env
-    - docker-compose -f docker-compose.yml up -d
-    - docker-compose exec -T api pylint config src
-    - docker-compose exec -T api python -m unittest discover src "*Test.py"
-    - docker-compose down -v --remove-orphans
+    - docker-compose -f ./docker/docker-compose.ci.yml run --rm api pylint config src
+    - docker-compose -f ./docker/docker-compose.ci.yml run --rm api python -m unittest discover src "*Test.py"
 
 .build_script_template: &build_script
   script:
     - cp .env.dist .env
-    - docker-compose -f docker-compose.yml up -d
-    - docker-compose exec -T api pylint config src
-    - docker-compose exec -T api python -m unittest discover src "*Test.py"
-    - docker-compose down -v --remove-orphans
+    - docker-compose -f ./docker/docker-compose.ci.yml run --rm api pylint config src
+    - docker-compose -f ./docker/docker-compose.ci.yml run --rm api python -m unittest discover src "*Test.py"
     - docker build --target bicing_machine_learning_api -t $PRODUCTION_IMAGE .
     - docker push $PRODUCTION_IMAGE
+
+.production_script_template: &production_script
+  script:
+    - chmod +x ./docker/production/deploy.sh
+    - ./docker/production/deploy.sh
 
 test:
   <<: *cache
@@ -56,3 +58,12 @@ build:
   - /^[R|r]elease\/.*$/
   - /^[H|h]otfix\/.*$/
   stage: build
+
+production:
+  <<: *production_script
+  environment: production
+  only:
+  - /^[R|r]elease\/.*$/
+  - /^[H|h]otfix\/.*$/
+  stage: production
+  when: manual

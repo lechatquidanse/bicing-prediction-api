@@ -1,0 +1,8 @@
+version: '2'
+
+services:
+  api:
+    image: ${PRODUCTION_IMAGE}
+    ports: ['9090:9090']
+    restart: 'always'
+    volumes: ['./.env:/var/www/bicing-prediction-api/.env', './var:/var/www/bicing-prediction-api/var']

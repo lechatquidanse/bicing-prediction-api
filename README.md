@@ -1,5 +1,5 @@
 <p align="center">
-    <img alt="Bicing Log" title="Bicing Prediction API" src="./documentation/bicing-prediction-logo.png" width="100%">
+    <img alt="Bicing Log" title="Bicing Prediction API" src="./documentation/bicing-prediction-logo.png" width="20%">
 </p>
 <h1 align="center">Bicing Prediction API</h1>
 
@@ -20,9 +20,9 @@
   <a href="#features">Features</a> •
   <a href="#built-with">Built With</a> •
   <a href="#development">Development</a> •
-  <a href="#coding-standard">Coding Standard</a> •
   <a href="#machine-learning">Machine Learning</a> •
-  <a href="#ci-and-deployment">CI and Deployment</a>
+  <a href="#ci-and-deployment">CI and Deployment</a> •
+  <a href="#project-context">Project Context</a>
 </p>
 
 
@@ -64,9 +64,7 @@ Multiple features are proposed across 2 user interfaces, a REST API and command-
 ## Development
 The Makefile contains useful command for development purpose
 
-![Makefile helpul commands](./documentation/makefile-help-min.png)
-
-## <a name="coding-standard"></a> Coding standard
+![Makefile helpul commands](./documentation/makefile-help.png)
 
 ### Domain Driven Design
 
@@ -143,6 +141,18 @@ It will then install project, launch qa tools and then build and push a docker i
 This manual action, will pull the image build by the previous step and update the specific container.
 
 ![Continuous Integration](./documentation/continuous-integration.png)
+
+## <a name="machine-learning"></a> Project Context
+
+Even if it's the last one, this part is very important to me.
+Knowing the he context of a project creation is the key to understand how it is implemented.
+
+### Why
+
+### How
+
+### When
+
 
 ## License
 

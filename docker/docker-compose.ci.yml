@@ -3,5 +3,6 @@ version: '2.3'
 services:
   api:
     build:
+      context: .
       target: 'bicing_machine_learning_api'
 

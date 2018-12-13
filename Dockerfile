@@ -6,7 +6,7 @@ FROM python:3.7 AS bicing_machine_learning_api
 WORKDIR /var/www/bicing-prediction
 
 COPY requirements.txt ./
-RUN mkdir -p .pip\
+RUN mkdir -p .pip \
     && pip install --upgrade pip \
     && pip --cache-dir=.pip install -r requirements.txt
 

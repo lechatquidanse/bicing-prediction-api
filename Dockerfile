@@ -13,6 +13,7 @@ RUN git clone --recursive https://github.com/dmlc/xgboost \
     && cd xgboost; make -j4
 
 COPY ./config .
+COPY ./features .
 COPY ./src .
 
 EXPOSE 9090

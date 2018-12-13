@@ -27,18 +27,14 @@ before_script:
 .quality_assurance_script_template: &quality_assurance_script
   script:
     - cp .env.dist .env
-    - docker-compose -f ./docker/docker-compose.ci.yml up -d
-    - docker-compose run --rm api pylint config src
-    - docker-compose run --rm api python -m unittest discover src "*Test.py"
-    - docker-compose down -v --remove-orphans
+    - docker-compose -f ./docker/docker-compose.ci.yml run --rm api pylint config src
+    - docker-compose -f ./docker/docker-compose.ci.yml run --rm api python -m unittest discover src "*Test.py"
 
 .build_script_template: &build_script
   script:
     - cp .env.dist .env
-    - docker-compose -f ./docker/docker-compose.ci.yml up -d
-    - docker-compose run --rm api pylint config src
-    - docker-compose run --rm api python -m unittest discover src "*Test.py"
-    - docker-compose down -v --remove-orphans
+    - docker-compose -f ./docker/docker-compose.ci.yml run --rm api pylint config src
+    - docker-compose -f ./docker/docker-compose.ci.yml run --rm api python -m unittest discover src "*Test.py"
     - docker build --target bicing_machine_learning_api -t $PRODUCTION_IMAGE .
     - docker push $PRODUCTION_IMAGE
 

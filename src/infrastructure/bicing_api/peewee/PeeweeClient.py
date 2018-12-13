@@ -6,7 +6,7 @@ from typing import Any
 from peewee import PostgresqlDatabase
 
 
-class PeeweeClient():
+class PeeweeClient:
     def __init__(self, db_client: PostgresqlDatabase):
         self._db_client = db_client
 

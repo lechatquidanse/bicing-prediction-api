@@ -6,8 +6,9 @@ FROM python:3.7 AS bicing_machine_learning_api
 WORKDIR /var/www/bicing-prediction
 
 COPY requirements.txt ./
-RUN pip install --upgrade pip \
-    && pip install -r requirements.txt
+RUN mkdir -p .pip\
+    && pip install --upgrade pip \
+    && pip --cache-dir=.pip install -r requirements.txt
 
 RUN git clone --recursive https://github.com/dmlc/xgboost \
     && cd xgboost; make -j4

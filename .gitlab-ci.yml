@@ -22,7 +22,7 @@ before_script:
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:
-    - ./vendor
+    - ./.pip
 
 .quality_assurance_script_template: &quality_assurance_script
   script:

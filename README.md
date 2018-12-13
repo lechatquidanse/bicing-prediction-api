@@ -21,8 +21,7 @@
   <a href="#built-with">Built With</a> •
   <a href="#development">Development</a> •
   <a href="#machine-learning">Machine Learning</a> •
-  <a href="#ci-and-deployment">CI and Deployment</a> •
-  <a href="#project-context">Project Context</a>
+  <a href="#ci-and-deployment">CI and Deployment</a>
 </p>
 
 
@@ -48,7 +47,8 @@ Your docker containers should have been successfully built and run.
 Multiple features are proposed across 2 user interfaces, a REST API and command-line commands:
 
 ### REST API:
-![Bicing API RESTs features](./documentation/features-rest.png)
+
+![Bicing API RESTs examples](./documentation/bicing-prediction-api-curl-example.png)
 
 ### CLI:
 
@@ -141,17 +141,6 @@ It will then install project, launch qa tools and then build and push a docker i
 This manual action, will pull the image build by the previous step and update the specific container.
 
 ![Continuous Integration](./documentation/continuous-integration.png)
-
-## <a name="machine-learning"></a> Project Context
-
-Even if it's the last one, this part is very important to me.
-Knowing the he context of a project creation is the key to understand how it is implemented.
-
-### Why
-
-### How
-
-### When
 
 
 ## License

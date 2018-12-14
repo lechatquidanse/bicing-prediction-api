@@ -1,0 +1,14 @@
+**/*.md
+**/.dockerignore
+**/.gitignore
+**/Dockerfile
+**/docker-compose.*
+docker/build/database/
+docker/development/
+documentation
+.env*
+.gitlab-ci.yml
+.idea
+Makefile
+**/**/tests/
+var/*

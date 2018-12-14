@@ -1,0 +1,30 @@
+swagger: "2.0"
+
+info:
+  version: 1.0.0
+  title: Prediction Station Availability Service
+  license:
+    name: MIT
+
+basePath: /1.0
+
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+
+paths:
+  /stations/{station_id}:
+    get:
+      operationId: user_interface.rest.flask.action.flask_predict_by_station_id_action.get
+      parameters:
+        - name: station_id
+          in: path
+          required: true
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: 'Predict number of bikes available at in a time slot for a station'

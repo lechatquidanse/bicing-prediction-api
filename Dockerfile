@@ -1,15 +1,33 @@
-FROM continuumio/miniconda3
+#########################################
+###### Bicing MACHINE LEARNING API ######
+#########################################
+FROM python:3.7 AS bicing_machine_learning_api
 
-ADD environment.yml /tmp/environment.yml
-
-RUN conda env create -f /tmp/environment.yml
-
-# Pull the environment name out of the environment.yml
-RUN echo "source activate $(head -1 /tmp/environment.yml | cut -d' ' -f2)" > ~/.bashrc
-ENV PATH /opt/conda/envs/$(head -1 /tmp/environment.yml | cut -d' ' -f2)/bin:$PATH
-
-WORKDIR /var/www/bicing-prediction
+WORKDIR /var/www/bicing-prediction-api
 
 COPY requirements.txt ./
+RUN mkdir -p .pip \
+    && pip install --upgrade pip \
+    && pip --cache-dir=.pip install -r requirements.txt
+
+RUN git clone --recursive https://github.com/dmlc/xgboost \
+    && cd xgboost; make -j4
+
+COPY ./config ./config
+COPY ./features ./features
+COPY ./src ./src
+
+EXPOSE 9090
+CMD ["python", "/var/www/bicing-prediction-api/src/app.py"]
+
+ENV PYTHONPATH "${PYTHONPATH}:/var/www/bicing-prediction-api/src/"
+ENV PYTHONPATH "${PYTHONPATH}:/var/www/bicing-prediction-api/config/"
+
+#########################################
+######## Bicing API for dev env ########
+#########################################
+FROM bicing_machine_learning_api AS bicing_machine_learning_api_env_dev
+
+COPY requirements_dev.txt ./
 RUN pip install --upgrade pip \
-    && pip install -r requirements.txt
+    && pip install -r requirements_dev.txt

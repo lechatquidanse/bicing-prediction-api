@@ -5,5 +5,5 @@ services:
     build:
       context: ..
       target: 'bicing_machine_learning_api'
-    volumes: ['../:/var/www/bicing-prediction']
+    volumes: ['../:/var/www/bicing-prediction-api']
 

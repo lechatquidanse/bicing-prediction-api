@@ -3,7 +3,7 @@
 #########################################
 FROM python:3.7 AS bicing_machine_learning_api
 
-WORKDIR /var/www/bicing-prediction
+WORKDIR /var/www/bicing-prediction-api
 
 COPY requirements.txt ./
 RUN mkdir -p .pip \
@@ -13,15 +13,15 @@ RUN mkdir -p .pip \
 RUN git clone --recursive https://github.com/dmlc/xgboost \
     && cd xgboost; make -j4
 
-COPY ./config .
-COPY ./features .
-COPY ./src .
+COPY ./config ./config
+COPY ./features ./features
+COPY ./src ./src
 
 EXPOSE 9090
-CMD ["python", "/var/www/bicing-prediction/src/app.py"]
+CMD ["python", "/var/www/bicing-prediction-api/src/app.py"]
 
-ENV PYTHONPATH "${PYTHONPATH}:/var/www/bicing-prediction/src/"
-ENV PYTHONPATH "${PYTHONPATH}:/var/www/bicing-prediction/config/"
+ENV PYTHONPATH "${PYTHONPATH}:/var/www/bicing-prediction-api/src/"
+ENV PYTHONPATH "${PYTHONPATH}:/var/www/bicing-prediction-api/config/"
 
 #########################################
 ######## Bicing API for dev env ########

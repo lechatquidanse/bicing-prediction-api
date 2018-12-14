@@ -1,8 +1,8 @@
 """
 Trainer to create a model
 """
-import json
-import logging
+# import json
+# import logging
 
 from pandas import DataFrame
 from sklearn.model_selection import train_test_split
@@ -29,11 +29,11 @@ class XGBoostDataTrainer:
         data_validate = xgb.DMatrix(x_val, y_val)
         watchlist = [(data_train, 'train'), (data_validate, 'validate')]
 
-        if params is None:
-            params = self._regresser.randomized_search_cv(x_train, y_train, data_x, data_y)
-            logging.critical(json.dumps(params))
-        # params = {'objective': 'reg:linear', 'subsample': 0.8, 'colsample_bytree': 0.85, 'seed': 42,
-        #           'max_depth': 23,
-        #           'n_estimators': 364}
+        # if params is None:
+        #     params = self._regresser.randomized_search_cv(x_train, y_train, data_x, data_y)
+        #     logging.critical(json.dumps(params))
+        params = {'objective': 'reg:linear', 'subsample': 0.8, 'colsample_bytree': 0.85, 'seed': 42,
+                  'max_depth': 23,
+                  'n_estimators': 364}
 
         return xgb.train(params, data_train, evals=watchlist, early_stopping_rounds=self.EARLY_STOP,)

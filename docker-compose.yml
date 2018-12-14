@@ -19,7 +19,7 @@ services:
     depends_on: ['bicing_api_db']
     networks: ['backend']
     ports: ['9090:9090']
-    volumes: ['./:/var/www/bicing-prediction']
+    volumes: ['./:/var/www/bicing-prediction-api']
 
 volumes:
   data-db:

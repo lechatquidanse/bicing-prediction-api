@@ -1,0 +1,69 @@
+image: docker:latest
+services:
+- docker:dind
+
+stages:
+- test
+- build
+- production
+
+before_script:
+- apk update && apk upgrade
+- apk add --update bash curl git gettext openssh python python-dev py-pip build-base openssl wget
+- pip install docker-compose
+
+- docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+
+- ENVIRONMENT=$(echo $CI_BUILD_REF_NAME | awk -F'/' '{print $1}')
+- PRODUCTION_TAG=$(echo $CI_BUILD_REF_NAME | awk -F'/' '{print $2}')
+- export PRODUCTION_IMAGE="$CI_REGISTRY_IMAGE:$PRODUCTION_TAG"
+
+.cache_template: &cache
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+    - .pip
+
+.quality_assurance_script_template: &quality_assurance_script
+  script:
+    - cp .env.dist .env
+    - docker-compose -f ./docker/docker-compose.ci.yml run --rm api pylint config src
+    - docker-compose -f ./docker/docker-compose.ci.yml run --rm api python -m unittest discover src "*Test.py"
+
+.build_script_template: &build_script
+  script:
+    - cp .env.dist .env
+    - docker-compose -f ./docker/docker-compose.ci.yml run --rm api pylint config src
+    - docker-compose -f ./docker/docker-compose.ci.yml run --rm api python -m unittest discover src "*Test.py"
+    - docker build --target bicing_machine_learning_api -t $PRODUCTION_IMAGE .
+    - docker push $PRODUCTION_IMAGE
+
+.production_script_template: &production_script
+  script:
+    - chmod +x ./docker/production/deploy.sh
+    - ./docker/production/deploy.sh
+
+test:
+  <<: *cache
+  <<: *quality_assurance_script
+  environment: test
+  only:
+  - /^[F|f]eature\/.*$/
+  stage: test
+
+build:
+  <<: *build_script
+  environment: build
+  only:
+  - /^[R|r]elease\/.*$/
+  - /^[H|h]otfix\/.*$/
+  stage: build
+
+production:
+  <<: *production_script
+  environment: production
+  only:
+  - /^[R|r]elease\/.*$/
+  - /^[H|h]otfix\/.*$/
+  stage: production
+  when: manual

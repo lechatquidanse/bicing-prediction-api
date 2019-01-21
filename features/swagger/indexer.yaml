@@ -28,3 +28,35 @@ paths:
       responses:
         '200':
           description: 'Predict number of bikes available at in a time slot for a station'
+
+  /forecasts:
+    post:
+      operationId: user_interface.rest.flask.action.flask_predict_by_station_ids_action.post
+      parameters:
+        - in: body
+          name: forecast
+          required: true
+          schema:
+            $ref: '#/definitions/Forecast'
+      responses:
+        '200':
+          description: 'Forecast state for many stations in '
+
+definitions:
+  Forecast:
+    type: object
+    required:
+      - station_ids
+      - filter
+    properties:
+      station_ids:
+        $ref: '#/definitions/StationIds'
+      filter:
+        $ref: '#/definitions/Filter'
+  Filter:
+    type: string
+  StationIds:
+    type: array
+    items:
+      type: string
+      format: uuid

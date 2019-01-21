@@ -6,12 +6,15 @@ import json
 from flask import request
 from injector import inject
 
+from application.use_case.data_provider.StationsAvailabilitiesPredictionByDateTimeInPeriodFilterDataProvider import \
+    StationsAvailabilitiesPredictionByDateTimeInPeriodFilterDataProvider
 from infrastructure.request.flask.ByDateTimeInPeriodFilterConverter import ByDateTimeInPeriodFilterConverter
 from user_interface.rest.flask.response.FlaskPredictByStationIdsResponse import FlaskPredictByStationIdsResponse
 
 
 @inject
-def post(request_filter_converter: ByDateTimeInPeriodFilterConverter, data_provider,
+def post(request_filter_converter: ByDateTimeInPeriodFilterConverter,
+         data_provider: StationsAvailabilitiesPredictionByDateTimeInPeriodFilterDataProvider,
          response: FlaskPredictByStationIdsResponse):
     data = json.loads(request.data)
 
